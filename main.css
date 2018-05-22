@@ -1,0 +1,52 @@
+.main-content {
+    width: 100%;
+}
+.main-content .left-main {
+    width: 500px;
+    height: 500px;
+    /* background: red; */
+    border: 1px solid white;
+    margin-left: 20px;
+    display: inline-block;
+}
+.main-content .right-main {
+    display: inline-block;
+    position: absolute;
+    margin-left: 40px;
+}
+.infos {
+    margin-left: 20px;
+    color: white;
+}
+.mb-5 {
+    font-size: 24px;
+}
+.noExtension {
+    color: #777777;
+    font-size: 18px;
+}
+.col-xs-17{
+    margin-top: 20px;
+}
+.col-xs-15{
+    margin-top: 20px;
+}
+#contact_email {
+    background-color: transparent;
+    font-size: 1.3rem;
+    word-wrap: break-word;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 10px;
+}
+.footer-link {
+    margin: 0 20px;
+    bottom: -20px;
+}
+.most-right-main {
+    display: inline-block;
+    border: 1px solid white;
+    height: 500px;
+    float: right;
+    right: 30px;
+}

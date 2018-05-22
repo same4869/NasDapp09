@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Letter - Simple Sign Up Form</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">  <!-- Google web font "Open Sans" -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	
+	<link rel="stylesheet" href="css/demo.css" />
+	<link rel="stylesheet" href="css/templatemo-style.css">
+	<link rel="stylesheet" href="main.css">
+
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8827ee39511568ac0705d037d67b2624"></script> 
+
+	<script type="text/javascript" src="./jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./dist/nebulas.js"></script>
+	<script type="text/javascript" src="./dist/nebPay.js"></script>
+	
+	<script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+	
+	</head>
+	<body>
+		<div id="particles-js"></div>
+
+		<div class="container-fluid">
+			<div class="row cb-slideshow-text-container ">
+				<div class="main-content tm-content">
+					<div class = "infos">
+						<span id="support">"我在"探测到您的数据：</span>
+						<div id="show">
+								纬度：<span id="latitude"></span><br />
+								经度：<span id="longitude"></span><br />
+								准确度：<span id="accuracy"></span>
+						</div>
+					</div>
+					<div id="map_canvas" class="left-main  col-xl-6">
+					</div>
+					<div class="right-main col-xl-5">
+						<header><h1>我在</h1></header>
+						<P class="mb-5">“我在”是一款基于星云链存储和LBS的趣味探索记录类DAPP，用户使用本DAPP在同意授权的情况下可以拿到用户当前的定位信息，这个信息可以根据用户意愿保存在星云链主网中。用户第二次定位后，会根据前一次的定位算出一个距离，这个距离可以累加，形成当前用户的“实力”数据。</P>							
+						<div class="subscribe-form">
+							<div class="row form-section">
+								<div class="col-md-7 col-sm-7 col-xs-7">
+									<input name="email" type="text" class="form-control" id="contact_address" placeholder="输入你的钱包地址" />
+								</div>
+								<div class="col-md-5 col-sm-5 col-xs-5">
+									<button type="submit" class="tm-btn-subscribe" id="pre-submit-btn">估算距离</button>
+								</div>
+								<div class="col-md-7 col-sm-7 col-xs-17" >
+									<!-- <input name="email" type="text" class="form-control" id="contact_email" placeholder="估算本次提交增加的距离:0米" disabled="disabled"/> -->
+									<p id="contact_email" class="contact-email">估算本次提交增加的距离:0米</p>
+								</div>
+								<div class="col-md-5 col-sm-5 col-xs-15">
+									<button type="submit" class="tm-btn-subscribe" id="submit-btn">提交上链</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="most-right-main col-xl-2">
+						<ul id="ranklist">
+
+						</ul>
+					</div>
+					<div class="noExtension" id="noExtension">
+							友情提示：使用前请确保已经安装<a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet">星云链钱包</a> 喔~
+					</div>
+				</div>
+				<div class="footer-link">
+					<p>Copyright © 2018 wx Team
+					- Design: <a rel="nofollow" href="#" target="_parent">xwang</a></p>
+				</div>
+			</div>
+		</div>		
+	</body>
+			
+	<script type="text/javascript" src="js/particles.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</html>
