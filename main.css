@@ -50,3 +50,8 @@
     float: right;
     right: 30px;
 }
+.item-content {
+    color: white;
+    font-size: 10px;
+    width: 100px;
+}

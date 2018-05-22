@@ -57,7 +57,7 @@ $(function () {
         dist = map.getDistance(pointA,pointB);
         if(dist){
             console.log("dist:" + dist);
-            $(".contact_email").text("估算本次提交增加的距离:" + dist + "米");
+            $("#contact_email").text("估算本次提交增加的距离:" + dist + "米");
         }
         var polyline = new BMap.Polyline([pointA,pointB], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
         map.addOverlay(polyline);     //添加折线到地图上
@@ -102,6 +102,21 @@ $(function () {
         }); 
     }
 
+    function updateUserInfo(lng, lat, dist){
+        var to = dappContactAddress;
+        var value = "0";
+        var callFunction = "updateUserInfo";
+        var callArgs = "[\"" + lng + "\",\"" + lat + "\",\"" + dist + "\"]";
+        console.log(callArgs);
+        serialNumber = nebPay.call(to, value, callFunction, callArgs, { 
+                listener: function (resp) {
+                       console.log(resp.result);
+                       result = JSON.parse(result);
+                       alert("提交上链成功~距离增加" + result + "米");
+                }
+        }); 
+    }
+
     function showError(error)
     {
         switch(error.code) 
@@ -121,6 +136,38 @@ $(function () {
         }
     }
 
+    function getAllInfo(){
+        var from = dappContactAddress;
+        var value = "0";
+        var nonce = "0";
+        var gas_price = "1000000";
+        var gas_limit = "20000000";
+        var callFunction = "getAllInfo";
+        var callArgs = "";
+        //console.log("callFunction:" + callFunction + " callArgs:" + callArgs);
+        var contract = {
+        "function": callFunction,
+        "args": callArgs
+        };
+        neb.api.call(from, dappContactAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
+        var result = resp.result;   
+        console.log("result : " + result);
+        result = JSON.parse(result);
+        var html = "";
+                        var itemList = result;
+                        console.log(itemList);
+        for(var i = 0, iLen = itemList.length; i < iLen; i++) {
+                html += '<li class="item-content">' +
+                                '<p>用户：<br>'+ itemList[i].name + '<br>距离：<br>' + itemList[i].dist + '</p>' +
+                                                '</li>';
+                                                console.log(html);
+        }
+        $('#ranklist').append(html);
+        }).catch(function (err) {
+        console.log("error :" + err.message);
+        })
+   }
+
     $("#pre-submit-btn").on("click", function(event) {
         //getLastLngAndLat(address)
         try{   
@@ -139,11 +186,18 @@ $(function () {
 
     $("#submit-btn").on("click", function(event) {
         if(latitudeVaule && longitudeVaule){
-            saveLngAndLat(longitudeVaule,latitudeVaule)
+            console.log(dist)
+            if(dist == 0 || !dist){
+                saveLngAndLat(longitudeVaule,latitudeVaule)
+            }else{
+                updateUserInfo(longitudeVaule,latitudeVaule,dist)
+            }
         }else{
             alert("请先等待定位成功~") 
         }
     });
+
+    getAllInfo()
     
     window.addEventListener('load', lodeSupport , true);
 })
