@@ -93,7 +93,9 @@ UserInfoBeans.prototype ={
         userInfoBean.lng = lng;
         userInfoBean.lat = lat;
         userInfoBean.name = from;
-        userInfoBean.dist += dist;
+        var temp1 = parseFloat(userInfoBean.dist)
+        var temp2 = parseFloat(dist)
+        userInfoBean.dist = temp1 + temp2;
 
         this.userInfos.put(from,userInfoBean);
 

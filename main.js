@@ -4,9 +4,9 @@ $(function () {
     var NebPay;
     var nebPay;
     var nebulas;
-    dappContactAddress = "n1t12ycrwakUNa6pZsiwwga8Uh3QAmZrcTL";
+    dappContactAddress = "n1pFQUFqFSvZx9iybV7pLYWBotTH1KoWu8z";
     nebulas = require("nebulas"), neb = new nebulas.Neb();
-    neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"));
+    neb.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"));
     
     NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
     nebPay = new NebPay();			
@@ -25,7 +25,29 @@ $(function () {
         if(navigator.geolocation){
             support.innerHTML = '“我在”DAPP探测到您本次信息如下（地理隐私数据不会被泄漏给其他人）';
             showDiv.style.display = 'block';
-            navigator.geolocation.getCurrentPosition(updataPosition,showError);
+            var geolocation = new BMap.Geolocation(); 
+            geolocation.getCurrentPosition(function(r){
+                // var latitudeP = position.coords.lat,
+                var mk = new BMap.Marker(r.point);  
+                latitudeP = r.point.lat;  
+                longitudeP = r.point.lng;  
+                console.log("latitudeP:" + latitudeP + " longitudeP:" + longitudeP);
+                // latitudeP = position.coords.lat,
+                // longitudeP = position.coords.lng,
+                // accuracyP = position.point.accuracy;
+                latitudeVaule = latitudeP;
+                longitudeVaule = longitudeP;
+                latitude.innerHTML = latitudeP;
+                longitude.innerHTML = longitudeP;
+                // accuracy.innerHTML = accuracyP;
+                //在百度 map中显示地址
+                map = new BMap.Map("map_canvas");          // 创建地图实例  
+                var point = new BMap.Point(longitudeP , latitudeP);  // 创建点坐标  
+                map.centerAndZoom(point, 15);// 初始化地图，设置中心点坐标和地图级别  
+                map.enableScrollWheelZoom(true);
+                var marker = new BMap.Marker(point);    
+                map.addOverlay(marker);  
+            },showError);
         }else{
             support.innerHTML = '对不起，当前浏览器不支持该DAPP！';
             showDiv.style.display = 'none';
@@ -110,9 +132,9 @@ $(function () {
         console.log(callArgs);
         serialNumber = nebPay.call(to, value, callFunction, callArgs, { 
                 listener: function (resp) {
-                       console.log(resp.result);
-                       result = JSON.parse(result);
-                       alert("提交上链成功~距离增加" + result + "米");
+                       console.log("resp : " + resp);
+                    //    result = JSON.parse(result);
+                       alert("提交上链成功~距离增加" + dist + "米");
                 }
         }); 
     }
@@ -158,8 +180,8 @@ $(function () {
                         console.log(itemList);
         for(var i = 0, iLen = itemList.length; i < iLen; i++) {
                 html += '<li class="item-content">' +
-                                '<p>用户：<br>'+ itemList[i].name + '<br>距离：<br>' + itemList[i].dist + '</p>' +
-                                                '</li>';
+                                '<p>用户：<br>'+ itemList[i].name + '<br>距离：<br>' + itemList[i].dist + '米</p>' +
+                                                '</li><HR style="FILTER: alpha(opacity=0,finishopacity=100,style=1)" width="95%" color=#ffffff SIZE=2>';
                                                 console.log(html);
         }
         $('#ranklist').append(html);

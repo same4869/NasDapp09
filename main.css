@@ -53,5 +53,6 @@
 .item-content {
     color: white;
     font-size: 10px;
-    width: 100px;
+    width: 200px;
+    word-wrap: break-word;
 }
