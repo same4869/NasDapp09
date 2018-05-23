@@ -9,7 +9,9 @@ $(function () {
     neb.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"));
     
     NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
-    nebPay = new NebPay();			
+    nebPay = new NebPay();	
+    var myneb = new Neb();
+    var nasApi = myneb.api;		
 
     var doc = document,
         latitude = doc.getElementById('latitude'),
@@ -21,6 +23,41 @@ $(function () {
     var latitudeVaule,longitudeVaule;
     var map;
     var dist;
+
+    function getWallectInfo() {
+        console.log("getWallectInfo");
+        window.addEventListener('message', getMessage);
+    
+        window.postMessage({
+            "target": "contentscript",
+            "data": {},
+            "method": "getAccount",
+        }, "*");
+    }
+    
+    function getMessage(e){
+        if (e.data && e.data.data) {
+            console.log("e.data.data:", e.data.data)
+            if (e.data.data.account) {
+                var address = e.data.data.account;
+                wallet_address = address;
+                console.log("address="+address);
+                $("#contact_address").text(address);
+                //hui("#wallet_address").html(address);
+                // refresh();
+                // nasApi.getAccountState({
+                //     address: address
+                // }).then(function (resp) {
+                //     var amount = Unit.fromBasic(Utils.toBigNumber(resp.balance), "nas").toNumber()//账号余额
+                //     console.log("余额："+amount);
+                //     this.wallet_balance = amount;
+                //     //hui("#wallet_balance").html(amount);
+                // });
+            }
+        }
+       
+    }
+
     function lodeSupport(){
         if(navigator.geolocation){
             support.innerHTML = '“我在”DAPP探测到您本次信息如下（地理隐私数据不会被泄漏给其他人）';
@@ -188,13 +225,14 @@ $(function () {
         }).catch(function (err) {
         console.log("error :" + err.message);
         })
+        getWallectInfo()
    }
 
     $("#pre-submit-btn").on("click", function(event) {
         //getLastLngAndLat(address)
         try{   
             // caluDist(longitudeVaule,latitudeVaule,0,0);
-            var address = document.getElementById("contact_address").value;
+            var address = document.getElementById("contact_address").innerHTML;
             if(address !== "" && address !== null && map !== null){
                 getLastLngAndLat(address)
                 console.log("clicked..." + address);

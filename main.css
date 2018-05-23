@@ -39,6 +39,14 @@
     border-radius: 8px;
     padding: 10px;
 }
+#contact_address {
+    background-color: transparent;
+    font-size: 1.3rem;
+    word-wrap: break-word;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 10px;
+}
 .footer-link {
     margin: 0 20px;
     bottom: -20px;
